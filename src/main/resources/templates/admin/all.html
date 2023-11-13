@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+</head>
+<body>
+<h2>User list</h2>
+<br>
+<div>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Roles</th>
+    </tr>
+
+    <tr th:each="user : ${users}">
+
+      <td th:utext="${user.getUsername()}"></td>
+      <td th:utext="${user.getEmail()}"></td>
+      <td th:utext="${user.getAge()}"></td>
+      <td>
+        <th:block th:each="role, iterStat : ${user.roles}">
+          <span th:utext="${role.getRolename()}"></span>
+          <span th:if="${!iterStat.last}"> </span>
+        </th:block>
+      </td>
+
+      <td>
+        <button type="submit">
+          <a th:href="@{/admin/{id} (id=${user.getId()})}">Details</a>
+        </button>
+      </td>
+      <td>
+        <button type="submit">
+          <a th:href="@{/admin/{id}/edit (id = ${user.getId()})}">Update</a>
+        </button>
+      </td>
+      <td>
+        <form th:method="DELETE" th:action="@{/admin/{id} (id = ${user.getId()})}">
+          <input type = "submit" value = "Delete"/>
+        </form>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+
+    <button type="submit">
+      <a th:href="@{/admin/new}">New user</a>
+    </button>
+
+  <br/>
+
+  <button type="submit">
+  <a th:href="@{/logout}">Logout</a>
+  </button>
+
+</div>
+</body>
+</html>

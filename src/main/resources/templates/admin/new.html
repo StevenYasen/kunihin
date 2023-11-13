@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>New user</title>
+</head>
+<body>
+
+
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+
+  <label for="username"> Input username: </label>
+  <input type="text" th:field="*{username}" id="username" />
+  <br/>
+
+  <label for="password"> Input password: </label>
+  <input type="text" th:field="*{password}" id="password" />
+  <br/>
+
+  <label for="email"> Input email: </label>
+  <input type="text" th:field="*{email}" id="email" />
+  <br/>
+
+  <label for="age"> Input age: </label>
+  <input type="number" th:field="*{age}" id="age"/>
+  <br/>
+
+
+  <td>
+    <label>Select role:</label>
+    <div class="checkbox-container" th:each="role : ${roles}">
+      <label>
+        <input type="checkbox" th:name="ids" th:value="${role.id}" th:id="${'role'+role.id}" />
+      </label>
+      <label th:for="${'role'+role.id}" th:text="${role.rolename}"></label>
+    </div>
+
+  </td>
+
+
+  <input type="submit" value="Confirm new user"/>
+
+</form>
+</body>
+</html>
