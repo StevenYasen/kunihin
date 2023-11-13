@@ -1,13 +1,11 @@
-#Read me first
+### To login as admin use following credentials:
 
-##To login as admin use following credentials:
+**Username**: admin
 
-Username: admin
+**Password**: admin
 
-Password: admin
+### To login as user use following credentials:
 
-##To login as user use following credentials:
+**Username**: user
 
-Username: user
-
-Password: user
+**Password**: user
