@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,9 +37,14 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
-                        formLogin.successHandler(successUserHandler).permitAll()
+                        formLogin
+                                .loginPage("/")
+                                .successHandler(successUserHandler)
+                                .permitAll()
                 )
-                .logout(logout ->logout.permitAll()
+                .logout(logout ->
+                        logout
+                                .permitAll()
                 );
         return httpSecurity.build();
     }
