@@ -39,9 +39,11 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/")
+                                .loginProcessingUrl("/login")
                                 .successHandler(successUserHandler)
                                 .permitAll()
                 )
+                .csrf(Customizer.withDefaults())
                 .logout(logout ->
                         logout
                                 .permitAll()
