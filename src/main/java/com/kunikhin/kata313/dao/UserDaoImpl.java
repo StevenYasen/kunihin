@@ -3,7 +3,9 @@ package com.kunikhin.kata313.dao;
 import com.kunikhin.kata313.entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,15 @@ public class UserDaoImpl implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    @Lazy
+    public UserDaoImpl(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
     @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
@@ -23,13 +34,11 @@ public class UserDaoImpl implements UserDao{
     @Override
     public User getUserById (long id) {
         return entityManager.createQuery("select u from User u where u.id = :id", User.class).setParameter("id", id).getSingleResult();
-//        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.id = :id", User.class);
-//        query.setParameter("id",id);
-//        return query.getSingleResult();
     }
 
     @Override
     public void addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
@@ -43,8 +52,9 @@ public class UserDaoImpl implements UserDao{
     public void updateUser (long id, User updatedUser) {
         User user = entityManager.find(User.class, id);
         user.setUsername(updatedUser.getUsername());
-        user.setPassword(updatedUser.getPassword());
-        user.setEmail(updatedUser.getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(user.getLastName());
         user.setAge(updatedUser.getAge());
         entityManager.persist(user);
     }
@@ -52,8 +62,6 @@ public class UserDaoImpl implements UserDao{
     @Override
     public User loadUserByUsername(String username) {
         return entityManager.createQuery("select u from User u where u.username = :username", User.class).setParameter("username",username).getSingleResult();
-//        TypedQuery<User> query = entityManager.createQuery("select u from User u where u.username = :username", User.class);
-//        query.setParameter("username",username);
-//        return query.getSingleResult();
+
     }
 }

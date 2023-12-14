@@ -24,10 +24,18 @@ public class AdminController {
 
     @GetMapping()
     public String getAllUsers(@AuthenticationPrincipal User user,Model model) {
-        model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("user", user);
+        model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/all";
+    }
+
+    @GetMapping("/test")
+    public String testPage(@AuthenticationPrincipal User user,Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles", roleService.getAllRoles());
+        return "admin/admin_bootstrap";
     }
 
     @GetMapping("/{id}")

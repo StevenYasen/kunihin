@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
-
     @Autowired
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -44,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser (long id, User updateUser) {
-        userDao.updateUser(id, updateUser);
+    public void updateUser (long id, User updatedUser) {
+        userDao.updateUser(id, updatedUser);
     }
 
     @Override
