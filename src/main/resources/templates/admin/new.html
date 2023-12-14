@@ -12,7 +12,7 @@
 
 <form th:method="POST" th:action="@{/admin}" th:object="${user}">
 
-  <label for="username"> Input username: </label>
+  <label for="username"> Input email: </label>
   <input type="text" th:field="*{username}" id="username" />
   <br/>
 
@@ -20,8 +20,12 @@
   <input type="text" th:field="*{password}" id="password" />
   <br/>
 
-  <label for="email"> Input email: </label>
-  <input type="text" th:field="*{email}" id="email" />
+  <label for="firstName"> Input first name: </label>
+  <input type="text" th:field="*{firstName}" id="firstName" />
+  <br/>
+
+  <label for="lastName"> Input last name: </label>
+  <input type="text" th:field="*{lastName}" id="lastName" />
   <br/>
 
   <label for="age"> Input age: </label>
