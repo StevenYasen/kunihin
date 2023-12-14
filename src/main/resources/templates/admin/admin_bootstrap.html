@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <title>Admin page</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <div class="container-fluid text-white">
+                <span class="navbar-header">
+                  <strong><span th:text="${user.getUsername()}"></span></strong>
+                  <span> with roles: </span>
+
+                </span>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+      <h1>Admin panel</h1>
+      <h5>All users</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="u : ${users}">
+
+          <td th:text="${u.getId()}"></td>
+          <td th:text="${u.getFirstName()}"></td>
+          <td th:text="${u.getLastName()}"></td>
+          <td th:text="${u.getAge()}"></td>
+          <td th:text="${u.getUsername()}"></td>
+
+          <td>
+            <th:block th:each="role, iterStat : ${u.roles}">
+              <span th:text="${role.getRolename()}"></span>
+              <span th:if="${!iterStat.last}"> </span>
+            </th:block>
+          </td>
+
+          <td>
+            <button type="submit">
+              <a th:href="@{/admin/{id}/edit (id = ${u.getId()})}">Update</a>
+            </button>
+          </td>
+          <td>
+            <form th:method="DELETE" th:action="@{/admin/{id} (id = ${u.getId()})}">
+              <input type = "submit" value = "Delete"/>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
