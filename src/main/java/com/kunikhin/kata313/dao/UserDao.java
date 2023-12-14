@@ -13,7 +13,7 @@ public interface UserDao {
     void addUser(User user);
 
     void delete(long id);
-    void updateUser (long id, User updateUser);
+    void updateUser (long id, User updatedUser);
     public User loadUserByUsername(String username);
 
 }

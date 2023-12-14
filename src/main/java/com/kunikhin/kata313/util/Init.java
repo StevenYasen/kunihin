@@ -37,9 +37,9 @@ public class Init {
         allRoles.add(roleService.getRoleById(1L));
         allRoles.add(roleService.getRoleById(2L));
 
-        userService.addUser(new User("admin", "admin", "admin@admin.ru", (byte) 65, adminRole));
-        userService.addUser(new User("user", "user", "user@user.ru", (byte) 56, userRole));
-        userService.addUser(new User("all", "all", "all@all.ru", (byte) 16, allRoles));
+        userService.addUser(new User("admin@admin.ru", "admin", "Admin", "Adminov", (byte) 44, adminRole));
+        userService.addUser(new User("user@user.ru", "user", "User", "Userov", (byte) 56, userRole));
+        userService.addUser(new User("all@all.ru", "all", "All", "Allin", (byte) 16, allRoles));
 
     }
 }
