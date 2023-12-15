@@ -1,7 +1,9 @@
 package com.kunikhin.kata313.dao;
 
 import com.kunikhin.kata313.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.List;
 

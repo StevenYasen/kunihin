@@ -4,10 +4,14 @@ import com.kunikhin.kata313.entities.User;
 import com.kunikhin.kata313.services.RoleService;
 import com.kunikhin.kata313.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,8 +35,8 @@ public class AdminController {
     }
 
     @GetMapping("/test")
-    public String testPage(@AuthenticationPrincipal User user,Model model) {
-        model.addAttribute("user", user);
+    public String testPage(@AuthenticationPrincipal Object user, Model model) {
+        model.addAttribute("principal", user);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/admin_bootstrap";

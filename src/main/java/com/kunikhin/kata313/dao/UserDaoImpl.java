@@ -5,6 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -32,7 +35,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUserById (long id) {
+    public User getUserById(long id) {
         return entityManager.createQuery("select u from User u where u.id = :id", User.class).setParameter("id", id).getSingleResult();
     }
 
@@ -49,7 +52,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void updateUser (long id, User updatedUser) {
+    public void updateUser(long id, User updatedUser) {
         User user = entityManager.find(User.class, id);
         user.setUsername(updatedUser.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -61,7 +64,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User loadUserByUsername(String username) {
-        return entityManager.createQuery("select u from User u where u.username = :username", User.class).setParameter("username",username).getSingleResult();
-
+        return entityManager.createQuery("select u from User u join fetch u.roles where u.username = :username", User.class).setParameter("username", username).getSingleResult();
     }
+
 }

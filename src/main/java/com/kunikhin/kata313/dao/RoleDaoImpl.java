@@ -3,7 +3,6 @@ package com.kunikhin.kata313.dao;
 import com.kunikhin.kata313.entities.Role;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

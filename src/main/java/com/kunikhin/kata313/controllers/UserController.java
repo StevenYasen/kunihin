@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping()
     public String myPage(Model model, Principal principal) {
-        User user = userDao.loadUserByUsername(principal.getName());
+        User user = (User) userDao.loadUserByUsername(principal.getName());
         model.addAttribute("user", user);
         return "user/myPage";
     }
